@@ -139,7 +139,7 @@ def main():
             convert_from = input("Enter Number to Convert: ")
             print(f'\nFrom {convert_from} to {decimal_conversion(convert_from, 16)}')
     elif select == "2":
-        print("You Have chosen Binary Base! Please choose the conversion you want:")
+        print("\t\tYou Have chosen Binary Base!\nPlease choose the conversion you want:")
         print("4. Binary to Decimal")
         print("5. Binary to Octal")
         print("6. Binary to Hexadecimal")
@@ -154,7 +154,7 @@ def main():
             convert_from = input("Enter Number to Convert: ")
             print(f'\nFrom {convert_from} to {conversion_All(convert_from, 2, 16)}')
     elif select == "3":
-        print("You Have chosen Octal Base! Please choose the conversion you want:")
+        print("\t\tYou Have chosen Octal Base!\nPlease choose the conversion you want:")
         print("7. Octal to Decimal")
         print("8. Octal to Binary")
         print("9. Octal to Hexadecimal")
@@ -169,7 +169,7 @@ def main():
             convert_from = input("Enter Number to Convert: ")
             print(f'\nFrom {convert_from} to {conversion_All(convert_from, 8, 16)}')
     elif select == "4":
-        print("You Have chosen Decimal Base! Please choose the conversion you want:")
+        print("\t\tYou Have chosen Decimal Base!\nPlease choose the conversion you want:")
         print("10. Hexadecimal to Decimal")
         print("11. Hexadecimal to Binary")
         print("12. Hexadecimal to Octal")

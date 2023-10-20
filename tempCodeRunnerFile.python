@@ -16,13 +16,6 @@ def baseFrom_to_decimal(number, base):
         print('Invalid number.')
 
 
-def reversing(originalForm):
-    reversedForm = ""
-    for i in reversed(originalForm):
-        reversedForm += i
-    return reversedForm
-
-
 def decimal_conversion(convertFrom, numberSystem):
     try:
         convertedNumber = ""
@@ -102,84 +95,81 @@ def toDecimal_conversion(convertFrom, numberSystem):
     return convertedNumber
 
 
-def conversion_All(convertFrom, baseFrom, baseTo):
-    print("\n\nConverting into decimal first...")
-    answer = toDecimal_conversion(convertFrom, baseFrom)
-    print(f"{answer}")
-    print(f"\n\nThen converting from decimal to base {baseTo}...")
-    output = decimal_conversion(str(answer), baseTo)
+def number_system_operations(base, operator, givenInput):
+        base_prefixes = {
+            '0b': 2,
+            '0o': 8,
+            '0x': 16
+        }
 
-    return output
+        base = base_prefixes.get(base, 10)
 
+        AStotalAnswer = 0
+        MDtotalAnswer = 1
+        for givenNumber in givenInput:
+            number = toDecimal_conversion(givenNumber, base)
+            if operator == "+":
+                AStotalAnswer += number
+            elif operator == "-":
+                if AStotalAnswer < number:
+                    AStotalAnswer = number - AStotalAnswer
+                else:
+                    AStotalAnswer -= number
+            elif operator == "*":
+                MDtotalAnswer *= number
+            elif operator == "/":
+                if MDtotalAnswer < number:
+                    MDtotalAnswer = number / MDtotalAnswer
+                else:
+                    MDtotalAnswer /= number
 
-def number_system_converter():
-    print("1. Decimal to Binary")
-    print("2. Decimal to Octal")
-    print("3. Decimal to Hexadecimal")
-    print("4. Binary to Decimal")
-    print("5. Binary to Octal")
-    print("6. Binary to Hexadecimal")
-    print("7. Octal to Decimal")
-    print("8. Octal to Binary")
-    print("9. Octal to Hexadecimal")
-    print("10. Hexadecimal to Decimal")
-    print("11. Hexadecimal to Binary")
-    print("12. Hexadecimal to Octal")
-    print("13. Go Back -->")
-
-    choice = int(input("Enter: "))
-
-    if choice == 13:
-        return
-
-    convert_from = input("Enter Number to Convert: ")
-
-    match choice:
-        case 1:
-            print(f'\nFrom {convert_from} to {decimal_conversion(convert_from, 2)}')
-        case 2:
-            print(f'\nFrom {convert_from} to {decimal_conversion(convert_from, 8)}')
-        case 3:
-            print(f'\nFrom {convert_from} to {decimal_conversion(convert_from, 16)}')
-        case 4:
-            print(f'\nFrom {convert_from} to {toDecimal_conversion(convert_from, 2)}')
-        case 5:
-            print(f'\nFrom {convert_from} to {conversion_All(convert_from, 2, 8)}')
-        case 6:
-            print(f'\nFrom {convert_from} to {conversion_All(convert_from, 2, 16)}')
-        case 7:
-            print(f'\nFrom {convert_from} to {toDecimal_conversion(convert_from, 8)}')
-        case 8:
-            print(f'\nFrom {convert_from} to {conversion_All(convert_from, 8, 2)}')
-        case 9:
-            print(f'\nFrom {convert_from} to {conversion_All(convert_from, 8, 16)}')
-        case 10:
-            print(f'\nFrom {convert_from} to {toDecimal_conversion(convert_from, 16)}')
-        case 11:
-            print(f'\nFrom {convert_from} to {conversion_All(convert_from, 16, 2)}')
-        case 12:
-            print(f'\nFrom {convert_from} to {conversion_All(convert_from, 16, 8)}')
-        case _:
+        if operator == '+' or operator == '-':
+            convertedAnswer = decimal_conversion(str(AStotalAnswer), base)
+        elif operator == '*' or operator == '/':
+            convertedAnswer = decimal_conversion(str(MDtotalAnswer), base)
+        else:
+            print('Invalid Operator.')
             return
 
+        # os.system('cls')
 
-option = ""
-while option != "0":
+        if base == 2:
+            print('BINARY OPERATION \n')
+        elif base == 8:
+            print('OCTAL OPERATION \n')
+        elif base == 16:
+            print('HEXADECIMAL OPERATION \n')
+        else:
+            print('DECIMAL OPERATION \n')
 
-    print("\n" + "N U M B E R   S Y S T E M" + "\n")
+        print(f"{givenInput[0]} ", end="")
+        for i in range(1, len(givenInput)):
+            print(f"{operator} {givenInput[i]} ", end="")
 
-    print("\n[A] Number System Converter "
-          "\n[B] Number System Calculator"
-          "\n[0] Exit \n")
-    option = input("Enter: ").upper()
+        return convertedAnswer
 
-    if option == "A":
-        number_system_converter()
-    elif option == "0":
-        break
-    else:
-        print("Invalid Input.")
-    os.system('pause')
-    os.system('cls')
 
-print("You exited the Program.")
+def number_system_calculator():
+    print("\nBase: 0b (binary), 0o (octal), 0x (hexadecimal), 10 (decimal)\n")
+    print("[+] Addition")
+    print("[-] Subtraction")
+    print("[*] Multiplication")
+    print("[/] Division")
+    print("[=] Enter = to Execute")
+    print("[^] Go Back --> \n")
+
+    choice = []
+    base = input("Enter Base: ")
+    operator = input('Enter Operator: ')
+
+    if "^" in base or "^" in operator:
+        return number_system_operations
+
+    while True:
+        userInput = input("Enter Numbers: ")
+        if userInput == '=':
+            break
+        choice.append(userInput)
+
+    print(f" \n= {number_system_operations(base, operator, choice)} ")
+    return number_system_calculator()
